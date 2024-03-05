@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">contact</li>
+
+        </ol>
+    </nav>
+
+    <h1 class="title">Contactez-nous</h1>
+    <div class="bg-light border border-3 rounded-5 p-3">
+        {% include "contact/_form.html.twig" %}
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ game.title|title }}{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_games_list') }}">Jeux</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ game.title|title }}</li>
+        </ol>
+    </nav>
+
+    {% include "game/_game_details.html.twig" %}
+    {# {% include "game/_last_reviews.html.twig" %} #}
+    {% include "game/_map.html.twig" %}
+    {% include "home/_games.html.twig" %}
+{% endblock %}
+
+{% block stylesheets %}
+     <!-- CSS Leaflet -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+{% endblock %}
+
+{% block javascripts %}
+     <!-- JS Leaflet -->
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+     <!-- Import AXIOS -->
+     <script src="{{ asset('assets/js/axios.min.js')}}"></script>
+
+     <!-- Import users functions for map -->
+     <script src="{{ asset('assets/js/mapFunctions.js')}}"></script>
+
+     <!-- Initialisation Map Leaflet -->
+     <script src="{{ asset('assets/js/map.js')}}"></script>
+
+     <!-- Dynamise add/remove button on game cards -->
+    <script src="{{ asset('assets/js/bibliogameAction.js') }}"></script>
+{% endblock %}

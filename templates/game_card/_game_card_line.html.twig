@@ -1,0 +1,21 @@
+<article class="row py-4">
+    <div class="col-4">
+        <div class="mx-auto p-2 border rounded">
+            <img class="img-fluid rounded" src="{{ game.imageUrl }}" alt="{{ game.title|title }}">
+        </div>
+    </div>
+    <div class="col-8">
+        <h2>{{ game.title|title }}</h2>
+        {% set rating = game.rating %}
+        {% include "partials/_star_counter.html.twig" %}
+        <p>{{ game.shortDescription }}</p>
+        <a href="{{ path('app_games_details', {slug: game.slug}) }}" class="btn btn-primary">Détails ...</a>
+        {# {% if app.user %} #}
+            {# {% if game in app.user.bibliogames %} #}
+                <a href="{{ path('app_bibliogame_add', {id: game.id}) }}" class="btn btn-primary">Ajouter à ma Bibliogame</a>
+            {# {% else %}                     #}
+                <a href="" class="btn btn-primary">Retirer de ma Bibliogame</a>
+            {# {% endif %} #}
+        {# {% endif %} #}
+    </div>
+</article>

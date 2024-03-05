@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_profil') }}">Profil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Messagerie</li>
+        </ol>
+    </nav>
+
+    <section>
+        <h1 class="title">Mes messages</h1>
+        {# on affiche toutes les conversation du user #}                
+        <input type="hidden" id="userAlias" value={{app.user.alias}}>
+
+        <div class="row d-flex justify-content-around pt-4">
+
+            <div class="col-md-5 mx-3">
+                
+                {% for chatting in chattings %}
+                    {% if chatting.userFrom.id == app.user.id %}
+                        {% set userTo = chatting.userTo %}
+                    {% else %} 
+                        {%set userTo = chatting.userFrom %}
+                    {% endif %}
+
+                    <div class="row bg-light border border-3 rounded-5 d-flex align-items-center p-1 mb-2">
+                        <div class="col-3">
+                        {% if userTo.avatar %}
+                            <img class='img-fluid rounded-circle' src="{{ asset('images/uploads/' ~ userTo.avatar) }}" style="height: 70px">
+                        {% else %}
+                            <img class="img-fluid rounded" src="{{ asset('images/ohmygame_logo.png') }}" alt="{{ userTo.alias|title }}" style="height:70px">
+                        {% endif %}
+                        </div>
+
+                        <div class="col-6 chatting text-center" value={{ chatting.id }} userTo="{{ userTo.alias }}" style="cursor:pointer">
+                            <span class="fs-5">{{userTo.alias}}</span>
+                        </div>
+
+                        {% if chatting.messages is empty %}
+                            <div class="col-3 text-center">
+                                <a href='{{path("app_profil_chatting_delete",{id:chatting.id}) }}' class="btn btn-danger rounded-circle" id='trash'>
+                                    <i class="fa-solid fa-trash-can" value={{ chatting.id }} ></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                <input type="hidden" id="userToId" value={{userTo.id}}>
+                <input type="hidden" id="userFromId" value={{app.user.id}}>
+             
+        {% endfor %}        
+    </div>
+
+
+
+     <div class="col-md-5 bg-light border border-3 rounded-5 p-3 mx-3">
+                <h4 id='chattingTo' class="title">Choisir une discussion</h4>
+
+                <div class='bg-white border rounded-3 overflow-scroll p-2' style="height: 400px" id="chatFrame">
+                        {# appel api pour afficher le contenu de la conversation  #}
+                </div>
+
+                <div class="my-3">
+                    <label class="form-label d-none" for="message">Message</label>
+                    <textarea class="form-control" id="message" disabled></textarea>
+                </div>
+
+                <div class="text-end">
+                    <input type='submit' class="btn btn-primary rounded-pill" id='submit' disabled/>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {# axios  #}
+    <script src="{{ asset('assets/js/axios.min.js')}}"></script>
+
+    {# functions send and show  #}
+    <script src="{{ asset('assets/js/chattingFunctions.js')}}"></script>
+
+    {# chattingListener #}
+    <script src="{{ asset('assets/js/chattingListener.js')}}"></script>
+{% endblock %}
+
+

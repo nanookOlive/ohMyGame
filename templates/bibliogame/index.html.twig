@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma Bibliogame{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bibliogame</li>
+        </ol>
+    </nav>
+
+    <h1 class="title">Bibliogame</h1>
+
+    {% if bibliogames|length > 0 %}
+        <div id="myBibliogame" class="row">
+            {% for bibliogame in bibliogames %}
+                <div class="col-md-3 mb-3">
+                    {% set game = bibliogame.game %}
+                    {% include "game_card/_bibliogame_game_card.html.twig" %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Commence à remplir ta bibliogame en consultant la <a href="{{ path('app_games_list') }}">liste des jeux</a>.</p>
+    {% endif %}
+
+    {% include "bibliogame/_borrowed_games.html.twig" %}
+    
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Import AXIOS -->
+    <script src="{{ asset('assets/js/axios.min.js') }}"></script>
+
+    <!-- Dynamise available button on game cards -->
+    <script src="{{ asset('assets/js/bibliogameToggle.js') }}"></script>
+
+    <!-- Dynamise add/remove button on game cards -->
+    <script src="{{ asset('assets/js/bibliogameLoad.js') }}"></script>
+
+    <!-- Dynamise add/remove button on game cards -->
+    <script src="{{ asset('assets/js/bibliogameAction.js') }}"></script>
+{% endblock %}

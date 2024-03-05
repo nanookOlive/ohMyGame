@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_profil') }}">Profil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{user.alias}}</li>
+        </ol>
+    </nav>
+
+    <div class="mb-4 p-5" style="min-height:30vh">
+        <div class="row bg-light border border-3 rounded-5 p-3 d-flex justify-content-center">
+            <div class='col-4 text-end p-2'>
+                {% if user.avatar %}
+                    <img class="img-fluid rounded rounded-5" src="{{ asset("images/uploads/" ~ user.avatar) }}" style="height:120px">    
+                {% else %}
+                    <img class="img-fluid rounded" src="{{ asset('images/ohmygame_logo.png') }}" alt="{{ user.alias|title }}" style="height:120px">
+                {% endif %}
+            </div>
+
+            <div class="col-8 p-2">
+            <h1 class="title">Bienvenue chez {{user.alias}}</h1>
+            <a href="{{path("app_profil_chatting_user",{id: user.id})}}" class="btn btn-primary rounded-pill">Contacter {{user.alias}}</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="myBibliogame" class="row">
+        {% for bibliogame in user.bibliogames %}
+            <div class="col-md-3 mb-3">
+                {% set game = bibliogame.game %}
+                {% include "game_card/_public_bibliogame_game_card.html.twig" %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

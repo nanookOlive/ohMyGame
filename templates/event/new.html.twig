@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un événement{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_event_index') }}">Evénements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Créer un événement</li>
+        </ol>
+    </nav>
+
+    <section>
+        <div class="bg-white border border-3 rounded-5 rounded-bottom-0 p-3 border-bottom-0">
+            <h1 class="title">Créer un événement</h1>
+            <ul>
+                <li>Les événements, sont des soirées jeu où les membres du site peuvent demander à participer à l'auteur.</li>
+                <li>L'auteur de l'événement peut accepter ou refuser la demande de participation.</li>
+            </ul>
+                <a class="btn btn-link" href="{{ path('app_event_index') }}">Retour</a>
+        </div>
+        <div class="bg-light border border-3 rounded-5 rounded-top-0 p-3">
+            {{ include('event/_form.html.twig') }}  
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,12 @@
+<div class="text-center row d-flex p-4">
+    <p class="fst-italic text-center">
+        "{{ review.content}}"
+    </p>
+    <div>
+        {% set rating = review.rating %}
+        {% include "partials/_star_counter.html.twig" %}
+        <div class="justify-content-between">
+            <small><a href="{{ path('app_profil_public', {id:review.member.id}) }}">{{ review.member.alias}}</a></small>
+        </div>
+    </div>
+</div>

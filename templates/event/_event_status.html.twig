@@ -1,0 +1,21 @@
+{% set userRequest = false %}
+
+{# Pour toutes les requests d'un event #}
+{% for request in event.eventRequests %}
+
+    {# if user de la request is current user #}
+    {% if request.user is same as app.user %}
+        <button class="btn btn-secondary rounded-pill" disabled>
+            {% include 'event/_translate_status_request.html.twig' %}
+        </button>
+        {% set userRequest = true %}
+        <a class="btn btn-danger rounded-pill" href="{{ path('app_event_requests_delete', {id: request.id}) }}"><i class="fa-solid fa-trash-can"></i></a>
+    {% endif %}
+
+{% endfor %}
+
+{% if event.eventRequests|length >= event.playersMax %}
+    <button class="btn btn-secondary rounded-pill" disabled>Complet</button>
+{% elseif not userRequest %}
+    <a href="{{ path('app_event_requests_new', {id: event.id, status: 'PENDING'}) }}" class="btn btn-primary rounded-pill">Participer</a>
+{% endif %}

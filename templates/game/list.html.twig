@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous nos jeux{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Jeux</li>
+        </ol>
+    </nav>
+
+    <h1 class="title mb-3" id="allGames">Tous nos jeux</h1>
+    <div class="row">
+        <div class="col-md-4 col-lg-3 mb-3">
+            <div class="bg-light rounded border border-3 p-2">
+                {% include "game/_form_search_bar_vertical.html.twig" %}
+            </div>
+        </div>
+        <div class="col-md-8 col-lg-9 row align-self-start">
+            {% for game in games %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    {% include "game_card/_game_card.html.twig" %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Import AXIOS -->
+    <script src="{{ asset('assets/js/axios.min.js') }}"></script>
+
+    <!-- Dynamise add/remove button on game cards -->
+    <script src="{{ asset('assets/js/bibliogameAction.js') }}"></script>
+{% endblock %}

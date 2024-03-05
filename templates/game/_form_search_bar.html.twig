@@ -1,0 +1,35 @@
+{{ form_start(form) }}
+    <div class="text-danger">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.title) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.minimumAge) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.releasedAt) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.editor) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.type) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.theme) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mx-auto">
+            <button type="submit" class="btn btn-primary fs-5">Search games</button>
+        </div>
+    </div>
+{{ form_end(form) }} 

@@ -1,0 +1,18 @@
+<article id="card{{ game.id }}" class="gamecard card h-100">
+    
+    {% include "game_card/_card_header.html.twig" %}
+
+    <div class="card-body">
+        <h4 class="title">{{ game.title|title }}</h4> 
+        {% set rating = game.rating %}
+        {% include "partials/_star_counter.html.twig" %}
+        <p>{{ game.shortDescription }}</p>
+        {# <hr>
+        {% for theme in game.theme %}
+            {{ theme }}
+        {% endfor %} #}
+    </div>
+    
+    {% include "game_card/_card_footer.html.twig" %}
+
+</article>

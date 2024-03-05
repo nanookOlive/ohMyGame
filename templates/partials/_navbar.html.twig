@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    
+    <div class="container-fluid">
+    
+        <a href="{{ path('app_home') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
+            <!-- logo Oh My Game-->
+            <img src="{{ asset('images/ohmygame_logo.png') }}" height="40" alt="Logo">
+            <span class="header-logo__title">Oh My Game</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_games_list')}}">Liste des jeux</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_map') }}">La carte</a>
+                </li>
+                {% if is_granted("ROLE_USER") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_bibliogame')}}">Bibliogame</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_event_index')}}">Evénements</a>
+                    </li>
+                    {# <li class="nav-item">
+                        <a class="nav-link" href="#">Mes amis</a>
+                    </li> #}
+                {% endif %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin')}}">Administration</a>
+                    </li>
+                {% endif %}
+            </ul>
+    <div class="navbar-collapse" id="navbarResponsive">
+        <!-- Si utilisateur connecté -->
+        {% if is_granted("ROLE_USER") %}
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("app_profil_chatting") }}">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a 
+                        class="nav-link dropdown-toggle" 
+                        href="#" id="navbarDropdown" 
+                        role="button"
+                        data-bs-toggle="dropdown"
+                    >
+                        <span>
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        {% if app.user %}
+                            <span class="ms-1">
+                                Bonjour {{ app.user }}
+                            </span>
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_profil') }}">Profil</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {% else %}
+            <!-- Si utilisateur déconnecté-->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+</nav>

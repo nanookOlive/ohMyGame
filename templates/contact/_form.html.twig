@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+    <div class="row d-flex">
+        <div class="col-md-6">
+            {{ form_row(form.alias) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.subject) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.description) }}
+            <div class="">
+                <button class="btn btn-primary rounded-pill">{{ button_label|default('Envoyer') }}</button>
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}

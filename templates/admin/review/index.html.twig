@@ -1,0 +1,39 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des commentaires{% endblock %}
+
+{% block cardheader %}
+    <h1>Liste des commentaires</h1>
+    
+{% endblock %}
+    
+{% block cardbody %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Jeux</th>
+                <th>Commentaires</th>
+                <th>actions</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for review in reviews %}
+            <tr>
+                <td>{{ review.game }}</td>
+                <td>{{ review.content }}</td>
+                <td>
+                    <a href="{{ path('app_admin_review_show', {'id': review.id}) }}">Voir</a>
+                </td>
+                <td>
+                    {{ include('admin/review/_delete.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de commentaires ici</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,41 @@
+#navbarSupportedContent{
+    margin-left:10px;
+    margin-right:10px;
+    }
+
+.dropdown {
+    margin-right:100px;
+}
+
+img.huechange { filter: hue-rotate(120deg); }
+img.huechangeevent { filter: hue-rotate(270deg); }
+
+.m-48 {
+    margin-bottom: 48px;
+}
+
+.yellow {
+    color: #feb21a;
+}
+
+.blue, .title {
+    color: #1d4b7c;
+}
+
+.red {
+    color: #bd3219;
+}
+
+.breadcrumb {
+    margin-bottom: 24px;
+}
+
+.gamecard:hover{
+    border: solid 1px #1d4b7c;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+.eventcard:hover{
+    border: solid 1px #1d4b7c;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+}

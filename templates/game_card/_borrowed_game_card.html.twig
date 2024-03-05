@@ -1,0 +1,28 @@
+{# Used in Bibliogame for MyBorrowedGames #}
+<article class="gamecard card h-100">
+    
+    {% include "game_card/_card_header.html.twig" %}
+
+    <div class="card-body">
+        <h4 class="title">{{ game.title|title }}</h4> 
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            Emprunté le {{ bibliogame.borrowedAt|date('j/m/Y') }}
+        </li>
+        <li class="list-group-item">
+            à <a href="{{ path('app_profil_public', {id: bibliogame.member.id}) }}" class="card-link">{{ bibliogame.member.alias }}</a>
+        </li>
+        {# <li class="list-group-item">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="switch{{ bibliogame.id }}"
+                    {% if bibliogame.isAvailable %}checked{% endif %} 
+                    value="{{ bibliogame.id }}"  disabled>
+                <label class="form-check-label" for="switch{{ bibliogame.id }}">Disponible</label>
+            </div>
+        </li> #}
+    </ul>
+    
+    {# {% include "game_card/_card_footer.html.twig" %} #}
+
+</article>

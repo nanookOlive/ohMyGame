@@ -1,0 +1,23 @@
+<section class="my-4">
+    <h2 class="title text-center">Joueurs qui possèdent {{ game|title }}</h2>
+
+    <!-- Cases à cocher pour voir les joueurs autour qui possèdent le jeu donné et les événements si utilisateur connecté-->
+    {% if is_granted('ROLE_USER') %}
+        <div class="mb-4 d-flex justify-content-center">
+            <button id="usersButton" class="rounded-pill btn btn-primary" style="margin-right: 10px;" data-toggle="button" aria-pressed="false" autocomplete="off">
+                Joueurs de {{ game.title }}
+            </button>
+        </div>
+    {% else %}
+        <!-- Cases servant de légende et liées aux joueurs et aux événements si utilisateur non connecté-->
+        <div class="mb-4 d-flex justify-content-center">
+            <button id="usersButton" class="rounded-pill btn btn-primary" style="margin-right: 10px;" data-toggle="button" aria-pressed="false" autocomplete="off">
+                Joueurs dans toute la France
+            </button>
+        </div>
+    {% endif %}
+
+    <div class="d-flex my-4">
+        <div id="map" class="border rounded mx-auto" style="height:400px; width:80%"></div>
+    </div>
+</section>

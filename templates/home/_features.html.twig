@@ -1,0 +1,49 @@
+<section class="container my-5 d-flex align-items-center" style="min-height: 70vh" id="features">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-6">
+
+        <div class="col">
+            <div class="card border-0">
+                <div class="">
+                    <div class="fs-1 align-middle text-center p-5">
+                        <i class="fa-solid fa-puzzle-piece fa-2xl text-primary"></i>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <p class="card-text">Pacourer les centaines de jeux de notre ludothèque</p>
+                    <a class="btn btn-primary" href="{{ path('app_games_list')}}">Voir tous les jeux</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            {# <div class="card shadow">
+                <div class="card-header"> #}
+            <div class="card border-0">
+                <div class="">
+                    <div class="fs-1 align-middle text-center p-5">
+                        <i class="fa-solid fa-dungeon fa-2xl text-danger"></i>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <p class="card-text">Créer votre bibliogame avec les jeux que vous possédez</p>
+                    <a class="btn btn-danger" href="{{ path('app_bibliogame')}}">Constituez votre Bibliogame</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card border-0">
+                <div class="">
+                    <div class="fs-1 align-middle text-center p-5">
+                        <i class="fa-solid fa-dragon fa-2xl text-warning"></i>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <p class="card-text">Trouver les joueurs autour de chez vous, pour échanger des jeux et se rencontrer !</p>
+                    <a class="btn btn-warning" href="{{ path('app_map')}}">Carte des joueurs</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,50 @@
+<table class="table">
+    {# <thead>
+        <tr>
+            <th>Date</th>
+            <th>Ville</th>
+            <th>Evénement</th>
+            <th>Type</th>
+            <th>Participants</th>
+            <th>actions</th>
+        </tr>
+    </thead> #}
+    <tbody>
+    {% for event in events %}
+        <tr>
+            <td>
+                {{ event.startAt|format_datetime('medium', 'short', locale='fr')|capitalize }}
+            </td>
+            <td>
+                {% if event.isPublic %}
+                    {% set city = event.address|split(' ')|last %}
+                {% else %}
+                   {% set city = event.host.city %}
+                {% endif %}
+                <a href="{{ path('app_event_index', {ville: city|url_encode}) }}">{{ city|title }}</a>
+            </td>
+            <td>
+                <a href="{{ path('app_event_show', {id: event.id}) }}">{{ event.title|title }}</a> 
+                par <a href="{{ path('app_profil_public', {id: event.host.id}) }}">{{ event.host.alias }}</a>
+            </td>
+            <td>{{ event.isPublic ? 'Public' : 'Privé' }}</td>
+            <td>
+                {% if event.isPublic is same as false %}
+                    {{ event.acceptedUsers|length }}{% if event.playersMax %}/{{ event.playersMax}}{% endif %}
+                {% endif %}</td>
+            <td>
+                {% if not is_granted('EVENT_EDIT', event) and event.isPublic is same as false %}
+
+                    {% include "event/_event_status.html.twig" %}
+                    
+                {% endif %}
+                {# <a href="{{ path('app_event_show', {'id': event.id}) }}">show</a> #}
+                {% if is_granted('EVENT_EDIT', event) %}
+                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">Editer</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% include "event/_event_requests.html.twig" %}
+    {% endfor %}
+    </tbody>
+</table>

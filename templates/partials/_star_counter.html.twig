@@ -1,0 +1,17 @@
+{% if rating == null %}
+    
+{% else %}
+    
+    {% for i in 1..5 %}
+    {% if rating >= i %}
+		<i class="yellow fa-solid fa-star"></i>
+	{% elseif rating >= i - 0.7 %}
+		<i class="yellow fa-regular fa-star-half-stroke"></i>
+	{% else %}
+		 <i class="yellow fa-regular fa-star"></i>
+	{% endif %}
+{% endfor %}
+
+{% endif %}
+
+

@@ -1,0 +1,57 @@
+{{ form_start(form) }}
+    {# {{ form_widget(form) }} #}
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.title) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.releasedAt) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.editor) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.minimumAge) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.duration) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.imageUrl) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.playersMin) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.playersMax) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.shortDescription) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.longDescription) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.author) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.illustrator) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.type) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.theme) }}
+        </div>
+    </div>
+    <button class="btn btn-primary">Enregistrer</button>
+{{ form_end(form) }}

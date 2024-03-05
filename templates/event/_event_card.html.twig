@@ -1,0 +1,28 @@
+{% if event.isPublic %}
+    {% set city = event.address|split(' ')|last %}
+{% else %}
+    {% set city = event.host.city %}
+{% endif %}
+
+
+<div class="eventcard card">
+    <a href="{{ path('app_event_show', {id: event.id}) }}" style="text-decoration: none">
+        <div class="card-header text-center" style="background-color: #1d4b7c; text-decoration: none">
+        <b class="text-light fs-4">{{ event.startAt ? event.startAt|format_datetime(pattern="dd MMM", locale='fr')|capitalize }}</b>
+        </div>
+    </a> 
+
+
+    <div class="card-body">
+        <div class="text-center mb-3">
+            <b class="fs-5 blue">{{ event.title|title }}</b>
+        </div>
+                
+
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-sm btn-{{ event.isPublic ? 'success' : 'danger' }}" disabled>{{ event.isPublic ? 'Public' : 'Privé' }}</button>
+            <a class="btn btn-sm btn-primary" href="{{ path('app_event_index', {ville: city|url_encode}) }}">{{ city|title }}</a>
+        </div>
+                
+    </div>
+</div>

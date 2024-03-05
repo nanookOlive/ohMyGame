@@ -1,0 +1,113 @@
+<article>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="d-flex justify-content-center">
+                <div class="p-2">
+                    {% if game.imageUrl %}
+                        <img class="img-fluid rounded" src="{{ game.imageUrl }}" alt="{{ game.title|title }}">
+                    {% else %}
+                        <img class="img-fluid rounded" src="{{ asset('images/ohmygame_logo.png') }}" alt="{{ game.title|title }}">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-14 mt-4 mx-auto bg-light p-3 rounded-5">
+                <h3 class='title text-center'>Détails</h3>
+                <ul>
+                    <ol>
+                        <strong>Types :</strong>
+                        {% for type in game.type %}
+                            {{ type }}
+                        {% endfor %}
+                    </ol>
+                    <ol>
+                        <strong>Thèmes :</strong>
+                        {% for theme in game.theme %}
+                            {{ theme }}
+                        {% endfor %}
+                    </ol>
+                    <ol><strong>Conçu par : </strong> 
+                        {% for author in game.author %}
+                        {{ author }}
+                        {% endfor %}
+                    </ol>
+
+                    <ol><strong>Illustré par : </strong> 
+                        {% for drawer in game.illustrator %}
+                        {{drawer}}
+                        {% endfor %}
+                    
+                    </ol>
+                    <ol><strong>Editeur : </strong> {{ game.editor }}</ol>
+
+                    <ol><strong>A partir de : </strong>{{ game.minimumAge }} ans</ol>
+                    <ol><strong>Date de sortie : </strong>{{ game.releasedAt|date("Y") }}</ol>
+                    <ol><strong>Temps de jeu : </strong> {{ game.duration }} min</ol>
+                    <ol><strong>De : </strong>{{ game.playersMin }}
+                        {% if game.playersMax %}
+                            à {{ game.playersMax }} joueurs
+                        {% endif %}
+                    </ol>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 bg-light p-3 rounded-5">
+            <input id="gameId" value="{{ game.id }}" hidden disabled></input>
+            <h1 class='title'>{{ game.title|title }}</h1>
+           
+            {% set rating = game.rating %}
+            {% if rating > 0 %}
+                {% include "partials/_star_counter.html.twig" %}
+            {% else %}
+                <p>Pas d'avis pour le moment</p>
+            {% endif %}
+            <p>{{ game.longDescription }}</p>
+            
+            
+            {% if is_granted('ROLE_USER') %}
+            
+            {% set bibliogame = null %}
+            {# Récupère la bibliogame du jeu et de l'utilisateur #}
+            {% for b in app.user.bibliogames %}
+                {% if b.game is same as game %}
+                    {% set bibliogame = b %}
+                {% endif %}
+            {% endfor %}
+
+            {# si la bibliogame existe et qu'il y a un emprunt en cours #}
+            {% if (bibliogame is not null) and (bibliogame.borrowedBy) %}
+                <button class="btn-action btn btn-light rounded-pill" disabled>En cours d'emprunt</button>
+            {% else %}
+            {% if (game in app.user.gameCollection) %}
+                <button id="action{{ game.id }}" value="{{ game.id }}" class="btn-action btn btn-light rounded-pill" onclick="return confirm('Retirer de ma bilbiogame ?');">
+                    <i class="fa-solid fa-minus"></i> Retirer
+            {% else %}
+                <button id="action{{ game.id }}" value="{{ game.id }}" class="btn-action btn btn-success rounded-pill">
+                    <i class="fa-solid fa-plus"></i> Ajouter
+            {% endif %}
+                </button>
+            {% endif %}
+
+        {% endif %}
+        </div>
+        <section class="my-5 text-center bg-light rounded-5 py-5">
+            <h2 class='title'>Avis</h2>
+            <div class="row">
+                {% for review in game.reviews|slice('0', '3') %}
+                <div class="col-md-4">
+                    {% include "review/_review_line.html.twig" %}
+                </div>
+                {% else %}
+				    <p>Aucun avis pour ce jeu</p>
+                {% endfor %}
+            </div>     
+            {% if is_granted('ROLE_USER')%}  
+                {% if game not in app.user.getGamesReviewed %}
+                    <a class="btn btn-primary rounded-pill" href="{{  path('app_review', {slug:game.slug}) }}">Ajouter un avis</a>
+                {% else %}
+                    <a class="btn btn-primary rounded-pill" href="{{  path('app_review', {slug:game.slug}) }}">Voir les avis</a>
+                {% endif %}
+
+            {% endif %}
+        </section>
+    </div>
+</article>

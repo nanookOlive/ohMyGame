@@ -1,0 +1,41 @@
+{{ form_start(form) }}
+    {# {{ form_widget(form) }} #}
+    <div class="row">
+
+        {% if is_granted('ROLE_ADMIN')  %}
+            <div class="col-md-6">
+                {{ form_row(form.isPublic) }}
+            
+                <div class="alert alert-secondary">
+                    <b>Pour les événements publics</b>
+                    {{ form_row(form.address) }}
+                    {{ form_row(form.pictureFile) }}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="col-md-6 mx-auto">
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.playersMax) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.startAt) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.endAt) }}
+                </div>
+            </div>
+            {{ form_row(form.description) }}
+        </div>
+
+    </div>
+    <div class="text-end">
+        <button class="btn btn-primary rounded-pill">Enregistrer</button>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un avis
+{% endblock %}
+
+{% block body %}
+   <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+			<li class="breadcrumb-item"><a href="{{ path('app_games_list') }}">Liste des jeux</a></li>
+			<li class="breadcrumb-item"><a href="{{path('app_games_details',{slug:game.slug})}}">{{game.title}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajouter un avis</li>
+
+        </ol>
+    </nav>
+	<div class="container">
+		<h1 class='title'>Les avis de
+			{{ game.title|title }}</h1>
+		<div class="row">
+			{% for review in reviews %}
+			<div class="col-md-4 p-2">
+				<div class="bg-light rounded-5 p-2">
+                    {% include "review/_review_line.html.twig" %}
+                </div>
+			</div>
+			{% else %}
+				<p>Aucun avis pour ce jeu</p>
+			{% endfor %}
+
+
+			{% if game in app.user.getGamesReviewed %}
+			{% else %}
+
+				<div class='col-md-6 mx-auto mt-4 bg-light border border-3 rounded-5 p-3'>
+					<h2 class='title'>Ajouter un avis</h2>
+					{# Ici on ouvre la balise form et on désactive la validation HTML5 #}
+					{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+					{# Ici on affiche tous les champs du formulaire #}
+					{{ form_widget(form) }}
+					{# on affiche manuellement le boutton submit #}
+					<button type="submit" class="btn btn-primary rounded-pill">Enregistrer</button>
+					{# <button class="btn btn-success" type="submit">Ajouter</button> #}
+					{# On ferme la balise <form> #}
+					{{ form_end(form) }}
+				</div>
+			{% endif %}
+	    </div>
+    </div>
+{% endblock %}

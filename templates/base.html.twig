@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Accueil{% endblock %} - Oh My Game</title>
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+        <!-- Bootstrap core CSS -->
+        {# <link href="{{ asset('assets/css/bootstrap.min.css')}}" rel="stylesheet"> #}
+
+        <!-- CSS home -->
+        {# <link href="{{ asset('assets/css/home.css') }}" rel="stylesheet" /> #}
+
+        <!-- FontAwesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />   
+
+        {% block stylesheets %}{% endblock %}
+            {{ encore_entry_link_tags('app') }}
+    </head>
+
+    <body>
+        <header>
+            <!-- NavBar -->
+            {# {% include "partials/_navbar.html.twig" %} #}
+            {% include "partials/_navbar_no_dropdown.html.twig" %}
+
+        </header>
+        
+
+        <!-- Body -->
+        {% block header %}{% endblock %}
+        
+        <div class="container my-2" style="min-height:69vh">
+            {% include "partials/message_flash.html.twig" %}
+            {% block body %}{% endblock %}
+        </div>
+
+        <!-- Footer -->
+        <div style="height:100px;
+                background-position: bottom left;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-image: url(' {{ asset('images/bg_bottom.png') }} ')">
+        </div>
+        <footer>
+            {% include "partials/_footer.html.twig" %}
+        </footer>
+        
+        <!-- Bootstrap core JS -->
+        {# <script src="{{ asset('assets/js/bootstrap.bundle.min.js')}}"></script> #}
+
+        <!-- Javascripts -->
+        {% block javascripts %}{% endblock %}
+            {{ encore_entry_script_tags('app') }}
+    </body>
+</html>

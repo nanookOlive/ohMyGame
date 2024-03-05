@@ -1,0 +1,81 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des jeux{% endblock %}
+
+{% block cardheader %}
+    <h1>Liste des jeux</h1>
+    <a class="btn btn-link" href="{{ path('app_admin_game_new') }}">Créer un jeu</a>
+{% endblock %}
+    
+{% block cardbody %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for game in paginator %}
+            <tr>
+                <td>{{ game.title }}</td>
+                <td>
+                    <a href="{{ path('app_admin_game_show', {'id': game.id}) }}">Voir</a>
+                    <a href="{{ path('app_admin_game_edit', {'id': game.id}) }}">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">Pas de jeux ici</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# Pagination #}
+    <div class="text-center">
+        {% set first_etc = false %}
+        {% set second_etc = false %}
+        {% for page in 1 .. nbPages %}
+            {# first #}
+            {% if loop.first %}
+                {% if page is same as thisPage  %}
+                    <a class="btn btn-outline-primary" href="{{ path('app_admin_game_index', {page: page}) }}">{{ page }}</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{{ path('app_admin_game_index', {page: page}) }}">{{ page }}</a>
+                {% endif %}
+            {% endif %}
+
+            {# 3 before #}
+            {% if (page == thisPage - 1 or page == thisPage - 2 or page == thisPage - 3) and page != 1 %}
+                <a class="btn btn-primary" href="{{ path('app_admin_game_index', {page: page}) }}">{{ page }}</a>
+            {% elseif first_etc == false and page == thisPage - 5 %}
+                ...
+                {% set first_etc = true %}
+            {% endif %}
+
+            {# Actual #}
+            {% if page is same as thisPage and not loop.first and not loop.last %}
+                <a class="btn btn-outline-primary" href="{{ path('app_admin_game_index', {page: page}) }}">{{ page }}</a>
+            {% endif %}
+
+            {# 3 after #}
+            {% if (page == thisPage + 1 or page == thisPage + 2 or page == thisPage + 3) and page != nbPages %}
+                <a class="btn btn-primary" href="{{ path('app_admin_game_index', {page: page}) }}">{{ page }}</a>
+            {% elseif second_etc == false and page == thisPage + 5 %}
+                ...
+                {% set second_etc = true %}
+            {% endif %}
+
+            {# last #}
+            {% if loop.last %}
+                {% if page is same as thisPage  %}
+                    <a class="btn btn-outline-primary" href="{{ path('app_admin_game_index', {page: page}) }}">{{ page }}</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{{ path('app_admin_game_index', {page: page}) }}">{{ page }}</a>
+                {% endif %}
+            {% endif %}
+            
+        {% endfor %}
+    </div>
+{% endblock %}

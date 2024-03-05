@@ -1,0 +1,43 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block cardheader %}
+    <h1>Administration</h1> 
+{% endblock %}
+
+{% block cardbody %}
+    <div class="row">
+		<div class="col-md-4">
+			<div class="text-center card rounded p-5">
+				<a href="{{ path('app_admin_user_index') }}">
+					<i class="fa-solid fa-user fa-4x"></i>
+					<br><br>
+					Utilisateurs
+                </a>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="text-center card rounded p-5">
+				<a href="{{ path('app_admin_game_index', {page: 1}) }}">
+					<i class="fa-solid fa-puzzle-piece fa-4x"></i>
+					<br><br>
+					Jeux
+                </a>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="text-center card rounded p-5">
+				<a href="{{ path('app_admin_review_index') }}">
+					<i class="fa-solid fa-message fa-4x"></i>
+					<br><br>
+					Commentaires
+                </a>
+			</div>
+		</div>
+    </div>
+{% endblock %}
+
+{% block cardfooter %}
+<i>Yo, à quoi veux tu encore toucher aujourd'hui ??</i>
+{% endblock %}

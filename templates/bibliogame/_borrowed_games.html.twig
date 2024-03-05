@@ -1,0 +1,12 @@
+{% if myBorrowedGames|length > 0 %}
+    <hr>
+    <h2>Mes Emprunts</h2>
+    <div id="borrows" class="row">
+        {% for bibliogame in myBorrowedGames %}
+            <div class="col-md-3 mb-3">
+                {% set game = bibliogame.game %}
+                {% include "game_card/_borrowed_game_card.html.twig" %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

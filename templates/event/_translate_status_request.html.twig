@@ -1,0 +1,4 @@
+{% if request.status == 'PENDING' %} Demande en  cours
+{% elseif request.status =='ACCEPTED'%} Demande acceptée
+{% else %} Demande refusée  
+{% endif %}

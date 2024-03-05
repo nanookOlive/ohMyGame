@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les événements{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Evénements</li>
+        </ol>
+    </nav>
+
+    <section>
+        <div class="">
+            <div class="mb-5">
+                <h1 class="title">Tous les événements</h1>
+                <a class="btn btn-primary rounded-pill" href="{{ path('app_event_new') }}">Créer un événement</a>
+                <a class="btn btn-primary rounded-pill" href="{{ path('app_event_user') }}">Mes événements</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    {% if passedEvents|length > 0 %}
+                        <a class="btn btn-danger rounded-pill" href="{{ path('app_event_delete_past') }}" onclick="return confirm('Supprimer les événements passés ?');">Supprimer les événements passés ({{ passedEvents|length }})</a>
+                    {% else %}
+                        <button class="btn btn-danger rounded-pill" disabled="disabled">Supprimer les événements passés</button>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="">
+                {% if events %}
+                    {# <div class="row">
+                        <div class="col-md-4 col-lg-3">
+                            {% for event in events %}
+                                {% include "event/_event_card.html.twig" %}
+                            {% endfor %}
+                        </div>
+                    </div> #}
+                    {% include "event/_event_table.html.twig" %}
+
+
+                {% else %}
+                    <p>Rien par ici</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

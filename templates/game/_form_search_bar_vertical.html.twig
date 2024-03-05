@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+    <div class="col d-grid gap-2 mx-auto my-2">
+        <button type="submit" class="btn btn-primary rounded-pill">Chercher des jeux</button>
+    </div>
+
+    <div class="text-danger">
+        {{ form_errors(form) }}
+    </div>
+
+    <div>
+        {{ form_row(form.title) }}
+        <div class="d-none d-md-block">
+            {{ form_row(form.minimumAge) }}
+            {{ form_row(form.releasedAt) }}
+            {{ form_row(form.editor) }}
+            {{ form_row(form.type) }}
+            {{ form_row(form.theme) }}
+        </div>
+    </div>
+
+{{ form_end(form) }} 

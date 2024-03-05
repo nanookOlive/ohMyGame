@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes événements{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_event_index') }}">Evénements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Mes événements</li>
+        </ol>
+    </nav>
+
+    <section>
+        <div class="">
+            <div class="mb-5">
+                <h1 class="title">Mes événements</h1>
+                <a class="btn btn-primary rounded-pill" href="{{ path('app_event_index') }}">Retour</a>
+                <a class="btn btn-primary rounded-pill" href="{{ path('app_event_new') }}">Créer un événement</a>
+            </div>
+            <div class="">
+                {% if events %}
+                    {% include "event/_event_table.html.twig" %}
+                {% else %}
+                    <p>Rien par ici</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

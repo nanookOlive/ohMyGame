@@ -1,0 +1,28 @@
+<section class="container my-5" style="min-height: 100vh">
+     <!-- Cases à cocher pour voir les joueurs autour et les événements si utilisateur connecté-->
+     {% if is_granted('ROLE_USER') %}
+          <h2 class="title mb-5 text-center">Les Joueurs Autour de chez moi</h2>
+          <div class="mb-4 d-flex justify-content-center">
+               <button id="usersButton" class="rounded-pill btn btn-primary" style="margin-right: 10px;" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    Joueurs autour de chez moi
+               </button>
+               <button id="eventsButton" class="rounded-pill btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    Rendez-vous OMG
+               </button>
+          </div>
+          {% else %}
+               <!-- Cases servant de légende et liées aux joueurs et aux événements si utilisateur non connecté-->
+               <h2 class="title mb-5 text-center">Les Joueurs dans toute la France</h2>
+               <div class="mb-4 d-flex justify-content-center">
+                    <button id="usersButton" class="rounded-pill btn btn-primary" style="margin-right: 10px;" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        Joueurs dans toute la France
+                    </button>
+                    <button id="eventsButton" class="rounded-pill btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        Rendez-vous OMG
+                    </button>
+               </div>
+     {% endif %}
+    <div class="d-flex justify-content-center my-4">
+        <div id="map" class="border rounded" style="height:600px; width:80%"></div>
+    </div>
+</section>

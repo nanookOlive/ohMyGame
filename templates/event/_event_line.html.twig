@@ -1,0 +1,29 @@
+
+<div class="row rounded-pill m-4 p-3 border border-primary d-flex align-items-center">
+    <div class="col-md-3 text-center">
+        {{ event.startAt ? event.startAt|format_datetime('medium', 'short', locale='fr')|capitalize }}
+        à 
+        {% if event.isPublic %}
+            {% set city = event.address|split(' ')|last %}
+        {% else %}
+            {% set city = event.host.city %}
+        {% endif %}
+        <a class="btn btn-primary rounded-pill" href="{{ path('app_event_index', {ville: city|url_encode}) }}">{{ city }}</a>
+    </div>
+    <div class="col-md-5">
+        <a class="btn btn-primary rounded-pill" href="{{ path('app_event_show', {id: event.id}) }}">{{ event.title|title }}</a>
+            par {{ event.host.alias }}
+        
+    </div>
+    <div class="col-md-4">
+        {% if not is_granted('EVENT_EDIT', event) and event.isPublic is same as false %}
+
+            {% include "event/_event_status.html.twig" %}
+            
+        {% endif %}
+        {# <a href="{{ path('app_event_show', {'id': event.id}) }}">show</a> #}
+        {% if is_granted('EVENT_EDIT', event) %}
+            <a class="btn btn-primary rounded-pill" href="{{ path('app_event_edit', {'id': event.id}) }}">Editer</a>
+        {% endif %}
+    </div>
+</div>

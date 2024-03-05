@@ -1,0 +1,15 @@
+<section class="container my-5" style="min-height: 70vh">
+    <h2 class="title mb-5 text-center" >Avez-vous déjà joué à ...</h2>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-6">
+
+            {% for game in randomGames %}
+                <div class="col mb-3">
+                    {% include "game_card/_game_card_title.html.twig" %}
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>

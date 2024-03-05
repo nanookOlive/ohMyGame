@@ -1,0 +1,13 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Oooups 404{% endblock %}
+
+{% block body %}
+    <div class="col-6 mx-auto text-center">
+        <h1>Oooups..</h1>
+        <img src="{{ asset('images/ohmygame_logo.png') }}" alt="ohmygame" class="img-fluid" style="max-height: 300px">
+        <p>.. cette page n'existe pas !</p>
+        <a class="btn-btn-link" href="{{ path('app_home') }}">retour à l'accueil</a>
+    </div>
+{% endblock %}

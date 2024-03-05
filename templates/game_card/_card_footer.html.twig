@@ -1,0 +1,32 @@
+{% if is_granted('ROLE_USER') %}
+    <div class="card-footer text-end border-0 bg-white">
+        {# {% if (game in app.user.gameCollection) %}
+            <a href="{{ path('app_bibliogame_remove', {gameId: game.id}) }}" class="card_link">Retirer de ma Bibliogame</a>
+        {% else %}                    
+            <a href="{{ path('app_bibliogame_add', {gameId: game.id}) }}" class="card_link">Ajouter à ma Bibliogame</a>
+        {% endif %} #}
+
+        {% set bibliogame = null %}
+        {# Récupère la bibliogame du jeu et de l'utilisateur #}
+        {% for b in app.user.bibliogames %}
+            {% if b.game is same as game %}
+                {% set bibliogame = b %}
+            {% endif %}
+        {% endfor %}
+
+        {# si la bibliogame existe et qu'il y a un emprunt en cours #}
+        {% if (bibliogame is not null) and (bibliogame.borrowedBy) %}
+                <button class="btn-action btn btn-light rounded-pill" disabled>En cours d'emprunt</button>
+        {% else %}
+                {% if (game in app.user.gameCollection) %}
+                    <button id="action{{ game.id }}" value="{{ game.id }}" class="btn-action btn btn-light rounded-pill" onclick="return confirm('Retirer de ma bilbiogame ?');">
+                        <i class="fa-solid fa-minus"></i> Retirer
+                {% else %}
+                    <button id="action{{ game.id }}" value="{{ game.id }}" class="btn-action btn btn-success rounded-pill">
+                        <i class="fa-solid fa-plus"></i> Ajouter
+                {% endif %}
+            </button>
+        {% endif %}
+
+    </div>
+{% endif %}

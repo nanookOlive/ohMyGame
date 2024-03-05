@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profil</li>
+        </ol>
+    </nav>
+    
+    {# Private profile #}
+    <div class="mb-4 p-5" style="min-height:30vh">
+        <div class="row bg-light border border-3 rounded-5 p-3 d-flex justify-content-center">
+            <div class='col-4 text-end p-2'>
+                {% if user.avatar %}
+                    <img src="{{ asset('images/uploads/' ~ user.avatar) }}" class="img-fluid" alt="image avatar" style="height:80px;">                
+                {% else %}
+                    <img class="img-fluid rounded" src="{{ asset('images/ohmygame_logo.png') }}" alt="{{ user.alias|title }}" style="height:80px">
+                {% endif %}
+            </div>
+
+            <div class="col-8 p-2">
+                <p>{{user.lastName}} {{user.firstname}} - {{user.email}}</p>      
+                <a href="{{path('app_profil_update')}}" class="btn btn-primary rounded-pill">Editer mon profil</a>
+                <a href="{{path('app_profil_edit_password')}}" class="btn btn-primary rounded-pill">Changer mon mot de passe</a>                        
+            </div>
+        </div>
+    </div>
+           
+    <div class="row">
+        {# col 1 #}
+        <div class="col-md-6">
+
+            <div class="card w-80" >
+                <div class='card-header'>
+                    <h4>Les jeux que j'emprunte</h4>
+                </div>
+                <div class="card-body overflow-hidden">
+                    {% if user.myBorrowedGames is empty %}
+                        <p>Pas d'emprunt pour le moment</p>
+                    {% else %}
+                        <ul>
+                            {% for bibliogame in user.myBorrowedGames %}
+                                <li>
+                                    <a href="{{ path("app_games_details", {slug:bibliogame.game.slug}) }}">{{ bibliogame.game.title }}</a>, 
+                                    emprunté à <a href="{{path("app_profil_public", {id:bibliogame.member.id}) }}">{{ bibliogame.member.alias }}</a> 
+                                    depuis le {{ bibliogame.borrowedAt|format_datetime('short', 'none', locale='fr') }} 
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        
+            {# on boucle sur la bibiogame d'un user si borrowed by true alors on affiche le jeu #}
+            <div class="card mt-3 w-80">
+                <div class='card-header'>
+                    <h4>Les jeux que je prête</h4>
+                </div>
+                <div class="card-body overflow-hidden">
+                    {% if borrowedBy %}
+                        <ul>
+                            {% for bibliogame in borrowedBy %}   
+                                {% if bibliogame.borrowedBy %}
+                                    <li>
+                                        <span>
+                                            <a href="{{path("app_games_details",{slug:bibliogame.game.slug})}}">{{bibliogame.game.title}}</a>, 
+                                            prêté à <a href="{{path("app_profil_public",{id:bibliogame.borrowedBy.id})}}">{{bibliogame.borrowedBy.alias}}</a> 
+                                            depuis le {{bibliogame.borrowedAt|format_datetime('short', 'none', locale='fr')}} 
+                                        </span>
+                                        <br>
+                                        <span>
+                                            <a href={{path('app_bibliogame_return',{id:bibliogame.id})}} class="btn btn-success rounded-pill">Récupérer</a>
+                                        </span>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Pas de prêt pour le moment</p>
+                    {% endif %}
+                </div>   
+            </div>
+
+        </div>
+        
+        {# col 2 #}
+        <div class="col-md-6">
+
+            <div class="card w-80">
+                <div class='card-header'>
+                    <h4>Mes jeux réservés par d'autres utilisateurs</h4>
+                </div>
+                <div class="card-body">
+                    {% set flag = 0 %}
+
+                    {% for bibliogame in user.bibliogames %}     
+                        {% if bibliogame.requestBy %}
+                            <ul>
+                                <li>
+                                    <span>
+                                        <a href="{{path("app_games_details",{slug:bibliogame.game.slug})}}">{{bibliogame.game.title}}</a>, 
+                                        demandé par <a href="{{path("app_profil_public",{id:bibliogame.requestBy.id})}}">{{bibliogame.requestBy.alias}}</a>
+                                    </span>
+                                    <br>
+                                    <span>
+                                        <a href="{{path('app_bibliogame_request_accept',{id:bibliogame.id})}}" class="btn btn-success mb-2 rounded-pill">Accepter</a>
+                                        <a href="{{path('app_bibliogame_request_deny',{id:bibliogame.id})}}" class="btn btn-danger mb-2 rounded-pill">Refuser</a>
+                                    </span>
+                                </li>
+                                {% set flag = 1 %}
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if flag == 0 %}
+                        <p>Personne ne souhaite vous emprunter de jeu pour l'instant</p>
+                    {% endif %}
+                </div>   
+            </div>
+
+            <div class="card mt-3 w-80">
+                <div class='card-header'>
+                    <h4>Les réservations que j'ai faites</h4>
+                </div>
+                <div class="card-body overflow-hidden">
+                    {% if user.myBibliogameRequest is empty %}                                    
+                        <p>Vous n'avez pas fait de demande de réservation </p>                              
+                    {% else %}
+                        <ul>
+                            {% for bibliogame in user.myBibliogameRequest %}    
+                                <li>
+                                    <a href="{{path("app_games_details",{slug:bibliogame.game.slug})}}">{{bibliogame.game.title}}</a>, 
+                                    demandé à <a href="{{path("app_profil_public",{id:bibliogame.member.id})}}">{{bibliogame.member.alias}}</a>, 
+                                    en attente de validation
+                                </li>
+                            {% endfor %}                              
+                        </ul>  
+                    {% endif %}
+                </div>   
+            </div>
+        </div>
+    </div>
+        
+{% endblock %}

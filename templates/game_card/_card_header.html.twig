@@ -1,0 +1,9 @@
+<div class="card-header bg-white border-0">
+    <a href="{{ path('app_games_details', {slug: game.slug}) }}">
+        {% if game.imageUrl %}
+            <img class="img-fluid rounded" src="{{ game.imageUrl }}" alt="{{ game.title|title }}">
+        {% else %}
+            <img class="img-fluid rounded" src="{{ asset('images/ohmygame_logo.png') }}" alt="{{ game.title|title }}">
+        {% endif %}
+    </a>
+</div>

@@ -1,0 +1,25 @@
+{# Used in Bibliogame #}
+<article id="card{{ game.id }}" class="gamecard card h-100">
+
+    {% include "game_card/_card_header.html.twig" %}
+
+    <div class="card-body">
+        <h4 class="title">{{ game.title|title }}</h4> 
+    </div>
+
+    <div class="card-footer border-0 bg-white text-center">
+        {% if bibliogame.isAvailable %}
+            {% if not bibliogame.borrowedBy %}
+                {% if bibliogame.requestBy %} 
+                    <button class="btn-action btn btn-light rounded-pill" disabled>En cours de réservation</button>
+                {% else %}
+                    <a href="{{path("app_bibliogame_request",{id:bibliogame.id})}}" class="btn btn-success rounded-pill">Faire une demande d'emprunt</a> 
+                {% endif %}
+            {% else %}
+                <button class="btn-action btn btn-light rounded-pill" disabled>En cours d'emprunt</button>
+            {% endif %}
+        {% else %} 
+            <button class="btn-action btn btn-light rounded-pill" disabled>Disponible avec {{bibliogame.member.alias}} !</button>
+        {% endif %}
+    </div>
+</article>

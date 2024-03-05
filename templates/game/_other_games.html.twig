@@ -1,0 +1,12 @@
+{% if otherGames %}
+    <section class="my-4">
+        <h2 class="text-center">Autres jeux du même éditeur</h2>
+        <div class="row mt-4">
+            {% for game in otherGames %}
+                <div class="col-md-3 mb-3">
+                    {% include "partials/_game_card_title.html.twig" %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}

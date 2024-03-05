@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer {{ event.title }}{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_event_index') }}">Evénements</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editer {{ event.title }}</li>
+        </ol>
+    </nav>
+
+    <section>
+        <div class="card">
+            <div class="card-header">
+                <h1>Editer {{ event.title }}</h1>
+                <a class="btn btn-link" href="{{ path('app_event_index') }}">Retour</a>
+            </div>
+            <div class="card-body">
+                {{ include('event/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+            <div class="card-footer text-end">
+                {{ include('event/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
